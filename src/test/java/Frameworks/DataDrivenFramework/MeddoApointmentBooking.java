@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
  
@@ -21,22 +21,12 @@ WebDriver driver;
     @BeforeTest
 public void initialization(){
     // To set the path of the Firefox driver.
-System.setProperty("webdriver.gecko.driver", "C:\\Users\\Neeraj Sharma\\eclipse-workspace\\DataDrivenFramework\\driver\\geckodriver.exe");
-driver = new FirefoxDriver();
-
-//Click on signin buton
-driver.findElement(By.xpath("//button[@class='jss117 btn-outline-light']")).click();
-driver.findElement(By.id("mobile")).sendKeys("9591008397");
-driver.findElement(By.xpath("//button[@class='jss115']")).click();
+System.setProperty("webdriver.chrome.driver", "C:\\Users\\Neeraj Sharma\\eclipse-workspace\\DataDrivenFramework\\driver\\Chromedriver.exe");
+driver = new ChromeDriver();
 
 
-driver.findElement(By.id("otp")).sendKeys("");
-
-
-
-
-    // To launch Salesforce Marketing Cloud App
-    driver.get("https://www.meddo.in/login");
+    // To launch Meddo website
+    driver.get("https://www.meddo.in/");
     // To maximize the browser
     driver.manage().window().maximize();
     // implicit wait
@@ -57,49 +47,62 @@ for(int i=1; i<=sheet.getLastRowNum(); i++){
 // Import data for Email.
 cell = sheet.getRow(i).getCell(0);
 /*cell.setCellType(Cell.CELL_TYPE_STRING);*/
-driver.findElement(By.id("username")).clear();
-driver.findElement(By.id("username")).sendKeys(cell.getStringCellValue());
-driver.findElement(By.id("submit-btn")).click();
-// Import data for password.
+
+//Click on Login link
+driver.findElement(By.xpath("//span[contains(text(),'Login')]")).click();
+
+//Click on sign with mobile number button
+driver.findElement(By.xpath("//*[contains(text(),'Sign in with Mobile Number')]")).click();
+
+//Enter the Mobile number
+//driver.findElement(By.xpath("//input[@id='mobile']")).sendKeys("9591008397");
+
+//Click on sign in with email link
+driver.findElement(By.xpath("//*[contains(text(),'E-mail instead')]")).click();
+
+//Enter Username
+driver.findElement(By.xpath("//input[@id='username']")).sendKeys(cell.getStringCellValue());
+
+//Import data for password.
 cell = sheet.getRow(i).getCell(1);
 /*cell.setCellType(Cell.CELL_TYPE_STRING);*/
-driver.findElement(By.id("password")).clear();         
-driver.findElement(By.id("password")).sendKeys(cell.getStringCellValue());
 
-// To click on Login button
-driver.findElement(By.id("submit-btn")).click();
-System.out.println("User has logged in succesfully");
-driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+//Enter Password
+driver.findElement(By.xpath("//input[@id='password']")).sendKeys(cell.getStringCellValue());
+
+//click on sign in button
+driver.findElement(By.xpath("//*[contains(text(),'Sign In')]")).click();
+System.out.println("User clicked on sign in link");
+
+try {
+	Thread.sleep(5000);
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+//Click on visit a doctor link
+driver.findElement(By.xpath("//*[contains(text(),'Visit A Doctor')]")).click();
+
+//Click on Book an Appointment
+driver.findElement(By.xpath("//*[contains(text(),'BOOK APPOINTMENT')]")).click();
+
+try {
+	Thread.sleep(5000);
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+//Click on online appointment
+driver.findElement(By.xpath("//*[contains(text(),'Online consultation')]")).click();
 
 
-//Navigate to Overview Page
-driver.findElement(By.xpath("//a[contains(text(),'Overview')]")).click();
-System.out.println("User clicked on Overview link");
-driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+driver.findElement(By.xpath("//span[contains(text(),'11:00 AM')]")).click();
 
-
-//navigate to content page
-driver.findElement(By.xpath(".//a[text()='Content']")).click();
-System.out.println("User clicked on Content link");
-driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-
-
-//Navigate to Subscribers Page
-driver.findElement(By.linkText("Subscribers")).click();
-System.out.println("User clicked on Subscribers link");
-//driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-//Navigate to Admin Page
-driver.findElement(By.xpath("//a[contains(text(),'Admin')]")).click();
-System.out.println("User clicked on Admin link");
-//driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-//Mouse hover the Profile settings section
-driver.findElement(By.xpath("//div[@class='mc-header-menu mc-user-info']")).click();
+//driver.findElement(By.xpath("//*[contains(text(),'BOOK APPOINTMENT')]")).click();
 
 //Clicks on Logout button.
-driver.findElement(By.linkText("Logout")).click();
+driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 
 
 //To close the Browser

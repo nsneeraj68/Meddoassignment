@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="Frameworks.DataDrivenFramework.amazonassignment">
+      <class name="Frameworks.DataDrivenFramework.MeddoApointmentBooking">
         <methods>
+          <include name="Meddoonlinebooking"/>
           <include name="initialization"/>
-          <include name="amazon"/>
         </methods>
-      </class> <!-- Frameworks.DataDrivenFramework.amazonassignment -->
+      </class> <!-- Frameworks.DataDrivenFramework.MeddoApointmentBooking -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
